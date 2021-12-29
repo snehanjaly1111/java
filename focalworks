@@ -1,0 +1,94 @@
+snehanjaly56@gmail.com
+Write a function to calculate a score for a candidate’s response for an essay type question based on how closely it matches the correct answer
+
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+public class Main
+{
+        public static int stringCompare(String str1, String str2)
+    {
+  
+        int l1 = str1.length();
+        int l2 = str2.length();
+        int lmin = Math.min(l1, l2);
+  
+        for (int i = 0; i < lmin; i++) {
+            int str1_ch = (int)str1.charAt(i);
+            int str2_ch = (int)str2.charAt(i);
+  
+            if (str1_ch != str2_ch) {
+                return str1_ch - str2_ch;
+            }
+        }
+        if (l1 != l2) {
+            return l1 - l2;
+        }
+        else {
+            return 0;
+        }
+    }
+	public static void main(String[] args) {
+	    int c=0,co=0;
+	    Scanner sc=new Scanner(System.in);
+	    String str=sc.nextLine();
+	    String str1=sc.nextLine();
+	    String[] astr = str.split(" ");
+	    String[] astr1 = str1.split(" ");
+	    boolean numeric = true;
+        Pattern pattern = Pattern.compile(".*[^0-9].*");
+        for(int i=0;i<astr.length;i++)
+	    {
+	        numeric = pattern.matcher(astr[i]).matches();
+	        if(!numeric)
+	        {c=c+4;//System.out.println(c+"\t"+astr[i]);
+	        }
+	        else if(astr[i].length()>=7)
+	        {
+	            c=c+3;//System.out.println(c+"\t"+astr[i]);
+	        }
+	        else if(astr[i].length()>=5 && astr[i].length()<7)
+	        {
+	            c=c+1;//System.out.println(c+"\t"+astr[i]);
+	        }
+	        else
+	        {
+	            c=c+0;//System.out.println(c+"\t"+astr[i]);
+	        }
+	    }
+	    for(int i=0;i<astr1.length;i++)
+	    {
+	        for(int j=0;j<astr.length;j++)
+	        {
+	           if(stringCompare(astr1[i],astr[j]) == 0){
+	                numeric = pattern.matcher(astr1[i]).matches();
+	                if(!numeric)
+	                {co=co+4;//System.out.println(co+"\t"+astr1[i]);
+	                    break;
+	                }
+	           else if(astr1[i].length()>=7)
+	           {
+	            co=co+3;
+	   //         System.out.println(co+"\t"+astr1[i]);
+	            break;
+	           }
+	           else if(astr1[i].length()>=5 && astr1[i].length()<7)
+	           {
+	               co=co+1;
+	               //System.out.println(aco+"\t"+astr1[i]);
+	               break;
+	           }
+	           else
+	           {
+	               co=co+0;
+	             //  System.out.println(co+"\t"+astr1[i]);
+	               break;
+	           }
+	        }
+	        }
+	    }
+	   // System.out.println(c+"\t"+co);
+	    double d=(co*100)/c;
+	    System.out.printf("%.2f", d);
+	}
